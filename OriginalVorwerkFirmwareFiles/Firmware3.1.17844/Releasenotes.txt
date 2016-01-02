@@ -1,0 +1,10 @@
+Mehr Sauberkeit
+- Optimierte Reinigung von Innenecken
+- Optimierte Reinigung von Außenecken
+
+Verbesserte Navigation
+- Verbesserte Verarbeitung der internen Kartendaten 
+- Optimierte Verarbeitung von Laserscanner-Daten
+
+Mehr Service
+- Aktualisierte Display-Texte in japanischer Sprache
