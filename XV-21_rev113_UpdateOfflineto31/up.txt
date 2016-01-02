@@ -1,0 +1,10 @@
+send SetLanguage None
+getlocal XV11App.17844.P.bin.enc
+wait 5000
+send testmode on
+send-nowait setsystemmode PowerCycleCDC
+wait 22000
+upload code reboot
+wait 22000
+send getversion
+send SetLanguage None

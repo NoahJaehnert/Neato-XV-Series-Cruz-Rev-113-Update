@@ -1,0 +1,105 @@
+
+; Windows USB Serial Communication Setup
+; Copyright (c) 2009 Neato Robotics, Inc.
+
+
+[Version] 
+Signature="$Windows NT$" 
+Class=Ports
+ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318} 
+Provider=%MFGNAME% 
+CatalogFile=neatousb.cat
+LayoutFile=layout.inf
+DriverVer=08/08/2009,1.0.0.0
+
+[Manufacturer] 
+%MFGNAME%=DeviceList, NTamd64
+
+[DestinationDirs] 
+DefaultDestDir=12 
+
+
+;------------------------------------------------------------------------------
+;  Windows 2000/XP/Vista-32bit Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.nt] 
+Include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection
+AddReg=DriverInstall.nt.AddReg 
+
+[DriverInstall.nt.AddReg] 
+HKR,,DevLoader,,*ntkern 
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys 
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider" 
+
+[DriverInstall.nt.Services] 
+AddService=usbser32, 0x00000002, DriverService.nt
+
+[DriverService.nt] 
+DisplayName=%SERVICE% 
+ServiceType=1
+StartType=3 
+ErrorControl=1                  ; This was '0' before
+ServiceBinary=%12%\%DRIVERFILENAME%.sys 
+
+;------------------------------------------------------------------------------
+;  Vista-64bit Sections
+;------------------------------------------------------------------------------
+
+[DriverInstall.NTamd64] 
+Include=mdmcpq.inf
+CopyFiles=FakeModemCopyFileSection 
+AddReg=DriverInstall.NTamd64.AddReg 
+
+[DriverInstall.NTamd64.AddReg] 
+HKR,,DevLoader,,*ntkern 
+HKR,,NTMPDriver,,%DRIVERFILENAME%.sys 
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider" 
+
+[DriverInstall.NTamd64.Services] 
+AddService=usbser64, 0x00000002, DriverService.NTamd64
+
+[DriverService.NTamd64] 
+DisplayName=%SERVICE% 
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\%DRIVERFILENAME%.sys 
+
+
+;------------------------------------------------------------------------------
+;  Vendor and Product ID Definitions
+;------------------------------------------------------------------------------
+[DeviceList]
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780D
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780C
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780B 
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780A 
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180D
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180C
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180B
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180A
+
+[DeviceList.NTamd64] 
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780D
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780C
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780B 
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_780A 
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180D
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180C
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180B
+%DESCRIPTION%=DriverInstall, USB\VID_2108&PID_180A
+
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+[Strings]
+DRIVERFILENAME ="usbser"
+MFGNAME="Neato Robotics, Inc."
+INSTDISK="The place where you saved the Neato Robotics USB Driver INF file"
+DESCRIPTION="Neato Robotics USB Port"
+SERVICE="Neato Robotics USB Driver"
+
+
